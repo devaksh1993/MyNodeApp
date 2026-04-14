@@ -1,0 +1,12 @@
+{
+  "name": "devops-app",
+  "version": "1.0.0",
+  "description": "Simple Express app for DevOps learning",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.22.1"
+  }
+}
