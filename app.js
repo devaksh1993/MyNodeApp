@@ -13,3 +13,5 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+setTimeout(() => process.exit(0), 3000);
