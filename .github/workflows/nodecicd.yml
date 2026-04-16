@@ -1,11 +1,11 @@
-name: Simple Node CI
+name: Node CI with Playwright
 
 on:
   push:
     branches: ["main"]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,12 +19,18 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Run app
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Start server
         run: |
           node app.js &
-          sleep 3
-          curl http://localhost:3000/health
-          pkill -f "node app.js"
-          echo "Server test passed successfully"
+          npx wait-on http://localhost:3000
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - name: Stop server
+        run: pkill -f "node app.js"
